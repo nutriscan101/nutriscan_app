@@ -8,6 +8,8 @@ void main() {
 
 class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    theme.textTheme.headlineMedium;
     return MaterialApp(home: Home(), debugShowCheckedModeBanner: false);
   }
 }
@@ -57,16 +59,17 @@ class Home extends StatelessWidget {
           padding: EdgeInsets.all(10),
           margin: EdgeInsets.all(10),
           child: Text(
-            "HELLO PD",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Times New Romen',
-              color: Colors.white,
-            ),
+            "Hello PD",
+            style: Theme.of(context).textTheme.headlineSmall,
+
+            // fontSize: 20,
+            // fontWeight: FontWeight.bold,
+            // fontFamily: 'Times New Romen',
+            // color: Colors.white,
           ),
         ),
       ),
+
       drawer: Drawer(
         child: ListView(
           children: [
