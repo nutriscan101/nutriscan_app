@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:main_app/Calende.dart';
-import 'Calende.dart';
+import 'package:main_app/homepage_Components/Calender.dart';
+import 'package:main_app/homepage_Components/Calories_Banner.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:main_app/homepage_Components/fat-carbs.dart';
 
 void main() {
   runApp(Nutri());
@@ -33,19 +35,42 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        toolbarHeight: 150,
         title: Row(
           children: [
             Image.asset('assets/images/appbarlogo.png', height: 30),
             const SizedBox(width: 8),
             Text(
               "NutriScan",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: GoogleFonts.poppins(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
       ),
-      body: Calender(),
-      );
+      body: Column(
+        children: [Calender(), Calories(), SizedBox(height: 10), fatcarbs()],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            activeIcon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.text_increase),
+            activeIcon: Icon(Icons.home),
+            label: 'Progress',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history),
+            activeIcon: Icon(Icons.history),
+            label: 'Profile',
+          ),
+        ],
+      ),
+    );
   }
 }

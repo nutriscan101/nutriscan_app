@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Calender extends StatefulWidget {
   const Calender({super.key});
@@ -35,6 +36,7 @@ class CalState extends State<Calender> {
           ),
         ),
         Text('Selected Day:' + today.toString().split(" ")[0]),
+        Padding(padding: EdgeInsets.all(5)),
       ],
     );
   }
