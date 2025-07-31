@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:main_app/homepage_Components/Calender.dart';
-import 'package:main_app/homepage_Components/Calories_Banner.dart';
+import 'package:main_app/homepage_Components/calories_banner.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:main_app/homepage_Components/fat-carbs.dart';
+import 'package:main_app/homepage_Components/healthy-drink-food.dart';
 
 void main() {
   runApp(Nutri());
@@ -50,9 +51,21 @@ class HomePage extends StatelessWidget {
         ),
       ),
       body: Column(
-        children: [Calender(), Calories(), SizedBox(height: 10), fatcarbs()],
+        children: [
+          Calender(),
+          Calories(),
+          SizedBox(height: 10),
+          fatcarbs(),
+          SizedBox(height: 10),
+          Healthydf(),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.grey,
+        showUnselectedLabels: true,
+        backgroundColor: Colors.white,
+        iconSize: 24,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -64,9 +77,20 @@ class HomePage extends StatelessWidget {
             activeIcon: Icon(Icons.home),
             label: 'Progress',
           ),
+
+          BottomNavigationBarItem(
+            icon: Image.asset('assets/images/scan.png', height: 49),
+            activeIcon: Image.asset('scan.png'),
+            label: 'Scan',
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.history),
             activeIcon: Icon(Icons.history),
+            label: 'History',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            activeIcon: Icon(Icons.person),
             label: 'Profile',
           ),
         ],

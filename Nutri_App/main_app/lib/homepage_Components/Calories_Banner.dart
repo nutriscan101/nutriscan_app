@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:main_app/homepage_Components/Calender.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -10,7 +9,7 @@ class Calories extends StatefulWidget {
 }
 
 class CalorState extends State<Calories> {
-  int Total_Calories = 1856;
+  int totalCalories = 1500;
   int target = 2000;
 
   @override
@@ -19,7 +18,7 @@ class CalorState extends State<Calories> {
     final screenheight = MediaQuery.of(context).size.height;
     return Container(
       width: screenWidth * 0.9,
-      height: screenheight * 0.18,
+      height: screenheight * 0.2,
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -48,7 +47,7 @@ class CalorState extends State<Calories> {
           ),
 
           Text(
-            Total_Calories.toString() + ' Kcal',
+            '$totalCalories Kcal',
             style: GoogleFonts.poppins(
               fontSize: 30,
               color: Colors.white,
@@ -68,7 +67,7 @@ class CalorState extends State<Calories> {
           LinearPercentIndicator(
             width: screenWidth * 0.85,
             lineHeight: 10,
-            percent: Total_Calories / target,
+            percent: totalCalories / target,
             animation: true,
             animateFromLastPercent: true,
             animationDuration: 2000,

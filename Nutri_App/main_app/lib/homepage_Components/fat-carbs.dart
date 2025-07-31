@@ -1,5 +1,6 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class fatcarbs extends StatefulWidget {
@@ -10,16 +11,15 @@ class fatcarbs extends StatefulWidget {
 }
 
 class fatcarbstate extends State<fatcarbs> {
-  int Fat = 45;
-  int carbs = 180;
+  int Fat = 0, carbs = 0;
 
   String fatstat() {
     if (Fat < 44) {
       return 'Bad';
     } else if (Fat <= 65) {
-      return 'Better';
-    } else if (Fat > 78) {
       return 'Good';
+    } else if (Fat > 78) {
+      return 'Too Much';
     } else {
       return 'Average';
     }
@@ -38,6 +38,15 @@ class fatcarbstate extends State<fatcarbs> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    setState(() {
+      Fat = 70;
+      carbs = 180;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenheight = MediaQuery.of(context).size.height;
@@ -46,8 +55,8 @@ class fatcarbstate extends State<fatcarbs> {
 
       children: [
         Container(
-          width: screenWidth * 0.43,
-          height: screenheight * 0.18,
+          width: screenWidth * 0.44,
+          height: screenheight * 0.175,
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -69,7 +78,7 @@ class fatcarbstate extends State<fatcarbs> {
                 ),
               ),
               Text(
-                Fat.toString() + 'g',
+                '$Fat' + 'g',
                 style: GoogleFonts.poppins(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
@@ -87,10 +96,10 @@ class fatcarbstate extends State<fatcarbs> {
             ],
           ),
         ),
-        SizedBox(width: 20),
+        SizedBox(width: 10),
         Container(
-          width: screenWidth * 0.43,
-          height: screenheight * 0.18,
+          width: screenWidth * 0.44,
+          height: screenheight * 0.175,
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
             gradient: LinearGradient(
