@@ -18,10 +18,16 @@ class CalState extends State<Calender> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenheight = MediaQuery.of(context).size.height;
     return Column(
       children: [
         Container(
+          decoration: BoxDecoration(
+            color: const Color.fromARGB(255, 255, 249, 164),
+          ),
           child: TableCalendar(
+            rowHeight: screenheight * 0.1,
             selectedDayPredicate: (day) => isSameDay(day, today),
             focusedDay: today,
             firstDay: DateTime.utc(2024, 01, 01),

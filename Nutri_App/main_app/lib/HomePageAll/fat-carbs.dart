@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,13 +9,13 @@ class fatcarbs extends StatefulWidget {
 }
 
 class fatcarbstate extends State<fatcarbs> {
-  int Fat = 0, carbs = 0;
+  int Fat = 100, carbs = 200;
 
   String fatstat() {
     if (Fat < 44) {
-      return 'Bad';
-    } else if (Fat <= 65) {
       return 'Good';
+    } else if (Fat < 65) {
+      return 'Bad';
     } else if (Fat > 78) {
       return 'Too Much';
     } else {
@@ -35,15 +33,6 @@ class fatcarbstate extends State<fatcarbs> {
     } else {
       return 'Average';
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      Fat = 70;
-      carbs = 180;
-    });
   }
 
   @override
@@ -78,7 +67,7 @@ class fatcarbstate extends State<fatcarbs> {
                 ),
               ),
               Text(
-                '$Fat' + 'g',
+                '$Fat g',
                 style: GoogleFonts.poppins(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
@@ -121,7 +110,7 @@ class fatcarbstate extends State<fatcarbs> {
                 ),
               ),
               Text(
-                carbs.toString() + 'g',
+                '$carbs g',
                 style: GoogleFonts.poppins(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,

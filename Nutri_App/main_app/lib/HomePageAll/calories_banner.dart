@@ -9,7 +9,7 @@ class Calories extends StatefulWidget {
 }
 
 class CalorState extends State<Calories> {
-  int totalCalories = 1500;
+  int totalCalories = 1200;
   int target = 2000;
 
   @override
@@ -55,7 +55,7 @@ class CalorState extends State<Calories> {
             ),
           ),
           Text(
-            "Target-" + target.toString() + ' Kcal',
+            'Target-$target Kcal',
             style: GoogleFonts.poppins(
               fontSize: 12,
               fontStyle: FontStyle.italic,
