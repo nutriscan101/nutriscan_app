@@ -23,6 +23,7 @@ class CalState extends State<Calender> {
     return Column(
       children: [
         Container(
+          width: screenWidth,
           decoration: BoxDecoration(
             color: const Color.fromARGB(255, 255, 249, 164),
           ),
