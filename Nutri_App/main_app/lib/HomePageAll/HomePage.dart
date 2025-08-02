@@ -6,7 +6,7 @@ import 'package:main_app/HomePageAll/fat-carbs.dart';
 import 'package:main_app/HomePageAll/healthy-drink-food.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required void Function() toggleTheme});
+  const HomePage({super.key});
   @override
   State<HomePage> createState() => HomeState();
 }
@@ -31,18 +31,17 @@ class HomeState extends State<HomePage> {
           ],
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Calender(),
-            Calories(),
-            SizedBox(height: 10),
-            fatcarbs(),
-            SizedBox(height: 10),
-            Healthydf(),
-          ],
-        ),
+      body: Column(
+        children: [
+          Calender(),
+          Calories(),
+          SizedBox(height: 10),
+          fatcarbs(),
+          SizedBox(height: 10),
+          Healthydf(),
+        ],
       ),
+
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.grey,
@@ -62,7 +61,7 @@ class HomeState extends State<HomePage> {
           ),
 
           BottomNavigationBarItem(
-            icon: Image.asset('assets/images/scan.png', height: 49),
+            icon: Image.asset('assets/images/scan.png', height: 55),
             activeIcon: Image.asset('scan.png'),
             label: 'Scan',
           ),

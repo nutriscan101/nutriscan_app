@@ -1,34 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Signup extends StatefulWidget {
-  const Signup({super.key});
+class Signin extends StatefulWidget {
+  const Signin({super.key});
   @override
-  State<Signup> createState() => SignupState();
+  State<Signin> createState() => SigninState();
 }
 
-class SignupState extends State<Signup> {
-  final FormKey_SignUp = GlobalKey<FormState>();
-
-  final TextEditingController F_name = TextEditingController();
-  final TextEditingController L_name = TextEditingController();
-  final TextEditingController E_mail = TextEditingController();
-  final TextEditingController Pass = TextEditingController();
+class SigninState extends State<Signin> {
+  final FormKey_login = GlobalKey<FormState>();
 
   bool _obscurePassword = true;
   bool isChecked = false;
 
-  void Clear() {
-    F_name.clear();
-    L_name.clear();
-    E_mail.clear();
-    Pass.clear();
-  }
-
   @override
   Widget build(BuildContext context) {
-    final Screenheight = MediaQuery.of(context).size.height;
-    final ScreenWidth = MediaQuery.of(context).size.width;
+    final screenheight = MediaQuery.of(context).size.height;
+    final Screenwidth = MediaQuery.of(context).size.width;
 
     @override
     void initState() {
@@ -40,14 +28,14 @@ class SignupState extends State<Signup> {
       body: SingleChildScrollView(
         child: Container(
           color: Colors.white,
-          height: Screenheight,
-          width: ScreenWidth,
+          height: screenheight,
+          width: Screenwidth,
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
               Image.asset(
                 'assets/images/appbarlogo.png',
-                height: Screenheight * 0.16,
+                height: screenheight * 0.16,
               ),
               Text(
                 'NUTRISCAN',
@@ -63,93 +51,31 @@ class SignupState extends State<Signup> {
               ),
               const SizedBox(height: 15),
               Text(
-                'Sign Up Account',
+                'Welcome back',
                 style: GoogleFonts.poppins(color: Colors.black, fontSize: 20),
               ),
               const SizedBox(height: 15),
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Create your Account',
+                  'Enter your login information',
                   style: GoogleFonts.roboto(fontSize: 15, color: Colors.grey),
                 ),
               ),
               const SizedBox(height: 15),
-
               Form(
-                key: FormKey_SignUp,
+                key: FormKey_login,
                 child: Column(
                   children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            controller: F_name,
-                            validator: (value) {
-                              if (value == null || value.trim().isEmpty) {
-                                return "First name is required";
-                              } else if (value.length < 2) {
-                                return "Must be at least 2 characters";
-                              } else if (!RegExp(
-                                r'^[a-zA-Z ]+$',
-                              ).hasMatch(value)) {
-                                return "Only letters allowed";
-                              }
-                              return null;
-                            },
-                            decoration: const InputDecoration(
-                              hintText: 'First Name',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 15),
-                        Expanded(
-                          child: TextFormField(
-                            controller: L_name,
-                            validator: (value) {
-                              if (value == null || value.trim().isEmpty) {
-                                return "Last name is required";
-                              } else if (value.length < 2) {
-                                return "Must be at least 2 characters";
-                              } else if (!RegExp(
-                                r'^[a-zA-Z ]+$',
-                              ).hasMatch(value)) {
-                                return "Only letters allowed";
-                              }
-                              return null;
-                            },
-                            decoration: const InputDecoration(
-                              hintText: 'Last Name',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 15),
-
                     TextFormField(
-                      controller: E_mail,
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return "Email is required";
-                        } else if (!RegExp(
-                          r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-                        ).hasMatch(value.trim())) {
-                          return "Enter a valid email";
-                        }
-                        return null;
-                      },
-                      decoration: const InputDecoration(
+                      obscureText: false,
+                      decoration: InputDecoration(
                         hintText: 'Email Address',
                         border: OutlineInputBorder(),
                       ),
                     ),
-                    const SizedBox(height: 15),
-
+                    SizedBox(height: 20),
                     TextFormField(
-                      controller: Pass,
                       obscureText: _obscurePassword,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
@@ -177,7 +103,6 @@ class SignupState extends State<Signup> {
                       ),
                     ),
                     const SizedBox(height: 10),
-
                     Row(
                       children: [
                         Checkbox(
@@ -188,26 +113,14 @@ class SignupState extends State<Signup> {
                             });
                           },
                         ),
-                        const Text("I agree to the "),
+                        const Text("Remember me"),
+
+                        const Spacer(),
                         GestureDetector(
                           onTap: () {},
                           child: const Text(
-                            "Terms of Services",
-                            style: TextStyle(
-                              color: Colors.blue,
-                              decoration: TextDecoration.underline,
-                            ),
-                          ),
-                        ),
-                        const Spacer(),
-                        GestureDetector(
-                          onTap: Clear,
-                          child: const Text(
-                            "Clear",
-                            style: TextStyle(
-                              color: Colors.black,
-                              decoration: TextDecoration.underline,
-                            ),
+                            "Forget Password",
+                            style: TextStyle(color: Colors.blue),
                           ),
                         ),
                       ],
@@ -215,9 +128,6 @@ class SignupState extends State<Signup> {
                   ],
                 ),
               ),
-
-              const SizedBox(height: 10),
-
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
@@ -230,12 +140,12 @@ class SignupState extends State<Signup> {
                   ),
                 ),
                 onPressed: () {
-                  if (FormKey_SignUp.currentState!.validate()) {}
+                  if (FormKey_login.currentState!.validate()) {}
                   ;
                 },
 
                 child: const Text(
-                  'Sign Up',
+                  'Sign In',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
