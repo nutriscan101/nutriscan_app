@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:main_app/HomePageAll/Calender.dart';
 import 'package:main_app/HomePageAll/calories_banner.dart';
@@ -14,12 +16,18 @@ class HomePage extends StatefulWidget {
 class HomeState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final Screenheight = MediaQuery.of(context).size.height;
+    final ScreenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Row(
           children: [
-            Image.asset('assets/images/appbarlogo.png', height: 30),
+            Image.asset(
+              'assets/images/appbarlogo.png',
+              height: Screenheight * 0.05,
+            ),
             const SizedBox(width: 8),
             Text(
               "NutriScan",
@@ -31,22 +39,28 @@ class HomeState extends State<HomePage> {
           ],
         ),
       ),
-      body: Column(
-        children: [
-          Calender(),
-          Calories(),
-          SizedBox(height: 10),
-          fatcarbs(),
-          SizedBox(height: 10),
-          Healthydf(),
-        ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          child: Column(
+            children: [
+              Calender(),
+              Calories(),
+              SizedBox(height: Screenheight * 0.02),
+              fatcarbs(),
+              SizedBox(height: Screenheight * 0.02),
+              Healthydf(),
+            ],
+          ),
+        ),
       ),
 
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.grey,
         showUnselectedLabels: true,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.white.withOpacity(0.7),
+        elevation: 0,
         iconSize: 24,
         items: [
           BottomNavigationBarItem(
