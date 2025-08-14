@@ -3,6 +3,7 @@ import 'HomePageAll/HomePage.dart';
 import 'SignUp_and_Login/Signup.dart';
 import 'SignUp_and_Login/SignIn.dart';
 import 'forgotPassword_page/forgotpass.dart';
+import 'forgotPassword_page/otp&pass_page.dart';
 
 void main() {
   runApp(Nutri());
@@ -20,7 +21,7 @@ class _NutriState extends State<Nutri> {
       title: 'NutriScan',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: forgotpass(),
+      home: Signup(),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'SignIn.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -247,8 +248,23 @@ class SignupState extends State<Signup> {
                       ),
                     ),
                     onPressed: () {
-                      if (FormKey_SignUp.currentState!.validate()) {}
+                      if (FormKey_SignUp.currentState!.validate() &&
+                          isChecked == true) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Signin()),
+                        );
+                      }
                       ;
+                      if (isChecked == true) {
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Please Accept Terms'),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      }
                     },
 
                     child: const Text(

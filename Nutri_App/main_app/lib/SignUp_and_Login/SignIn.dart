@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:main_app/SignUp_and_Login/Signup.dart';
+import 'package:main_app/forgotPassword_page/forgotpass.dart';
 
 class Signin extends StatefulWidget {
   const Signin({super.key});
@@ -131,7 +132,14 @@ class SigninState extends State<Signin> {
 
                           const Spacer(),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => forgotpass(),
+                                ),
+                              );
+                            },
                             child: const Text(
                               "Forget Password",
                               style: TextStyle(color: Colors.blue),

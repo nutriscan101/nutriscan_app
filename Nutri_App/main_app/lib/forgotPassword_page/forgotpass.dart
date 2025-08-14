@@ -63,7 +63,7 @@ class newpass extends State<forgotpass> {
                     ),
                   ),
                 ),
-                SizedBox(height: screenheight * 0.05),
+                SizedBox(height: screenheight * 0.10),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
