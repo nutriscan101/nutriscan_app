@@ -1,21 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:main_app/SignUp_and_Login/SignIn.dart';
+import 'package:main_app/forgotPassword_page/forgotpass.dart';
 
-class otppass extends StatefulWidget {
-  State<otppass> createState() => recovery();
+class Passwordrecovery extends StatefulWidget {
+  State<Passwordrecovery> createState() => Passwordrecoverystate();
 }
 
-class recovery extends State<otppass> {
+class Passwordrecoverystate extends State<Passwordrecovery> {
+  final recover_key = GlobalKey<FormState>();
+
+  final TextEditingController otpController = TextEditingController();
+  final TextEditingController newPassController = TextEditingController();
+  final TextEditingController checkpass_con = TextEditingController();
+
+  @override
+  void dispose() {
+    otpController.dispose();
+    newPassController.dispose();
+    checkpass_con.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final recover_key = GlobalKey<FormState>();
     final screenwidth = MediaQuery.of(context).size.width;
     final screenheight = MediaQuery.of(context).size.height;
-    final TextEditingController checkpass_con = new TextEditingController();
 
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
+
+      appBar: AppBar(
+        leading: Builder(
+          builder: (context) => IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => forgotpass()),
+              );
+            },
+            icon: Icon(Icons.arrow_back_ios_new),
+          ),
+        ),
+      ),
+
       body: SafeArea(
         child: SingleChildScrollView(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -50,6 +79,7 @@ class recovery extends State<otppass> {
                   child: Column(
                     children: [
                       TextFormField(
+                        controller: otpController,
                         obscureText: false,
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
@@ -70,8 +100,8 @@ class recovery extends State<otppass> {
                       SizedBox(height: screenheight * 0.05),
 
                       TextFormField(
-                        controller: checkpass_con,
-                        obscureText: false,
+                        controller: newPassController,
+                        obscureText: true, 
                         decoration: InputDecoration(
                           hintText: 'Enter New Password',
                           border: OutlineInputBorder(),
@@ -85,11 +115,11 @@ class recovery extends State<otppass> {
                           return null;
                         },
                       ),
-
                       SizedBox(height: screenheight * 0.03),
 
                       TextFormField(
-                        obscureText: false,
+                        controller: checkpass_con,
+                        obscureText: true, 
                         decoration: InputDecoration(
                           hintText: 'Re-Enter PassWord',
                           border: OutlineInputBorder(),
@@ -97,7 +127,7 @@ class recovery extends State<otppass> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please re-enter your password';
-                          } else if (value != checkpass_con.text) {
+                          } else if (value != newPassController.text) {
                             return 'Passwords do not match';
                           }
                           return null;
@@ -116,8 +146,12 @@ class recovery extends State<otppass> {
                     ),
                   ),
                   onPressed: () {
-                    if (recover_key.currentState!.validate()) {}
-                    ;
+                    if (recover_key.currentState!.validate()) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Signin()),
+                      );
+                    }
                   },
                   child: Text(
                     'Continue',

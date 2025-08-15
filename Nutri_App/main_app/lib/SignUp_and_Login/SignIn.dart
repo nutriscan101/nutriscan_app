@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:main_app/HomePageAll/HomePage.dart';
 import 'package:main_app/SignUp_and_Login/Signup.dart';
+import 'package:main_app/forgotPassword_page/PasswordRecovery.dart';
 import 'package:main_app/forgotPassword_page/forgotpass.dart';
 
 class Signin extends StatefulWidget {
   const Signin({super.key});
   @override
-  State<Signin> createState() => SigninState();
+  State<Signin> createState() => Signinstate();
 }
 
-class SigninState extends State<Signin> {
+class Signinstate extends State<Signin> {
   final FormKey_login = GlobalKey<FormState>();
 
   bool _obscurePassword = true;
@@ -40,14 +42,14 @@ class SigninState extends State<Signin> {
                   'NUTRISCAN',
                   style: GoogleFonts.roboto(
                     fontWeight: FontWeight.bold,
-                    fontSize: screenwidth * 0.05,
+                    fontSize: screenwidth * 0.06,
                     color: Colors.black,
                   ),
                 ),
                 Text(
                   'Health & Wellness',
                   style: GoogleFonts.poppins(
-                    fontSize: screenwidth * 0.02,
+                    fontSize: screenwidth * 0.03,
                     color: Colors.black,
                   ),
                 ),
@@ -150,6 +152,7 @@ class SigninState extends State<Signin> {
                     ],
                   ),
                 ),
+                SizedBox(height: screenheight * 0.05),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
@@ -162,7 +165,12 @@ class SigninState extends State<Signin> {
                     ),
                   ),
                   onPressed: () {
-                    if (FormKey_login.currentState!.validate()) {}
+                    if (FormKey_login.currentState!.validate()) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                      );
+                    }
                     ;
                   },
 
@@ -175,7 +183,7 @@ class SigninState extends State<Signin> {
                   ),
                 ),
 
-                SizedBox(height: screenheight * 0.03),
+                SizedBox(height: screenheight * 0.05),
 
                 Row(
                   children: const [
@@ -185,7 +193,7 @@ class SigninState extends State<Signin> {
                   ],
                 ),
 
-                SizedBox(height: screenheight * 0.02),
+                SizedBox(height: screenheight * 0.05),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

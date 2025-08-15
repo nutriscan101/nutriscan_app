@@ -34,6 +34,21 @@ class SignupState extends State<Signup> {
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
+      appBar: AppBar(
+        toolbarHeight: screenheight * 0.05,
+        backgroundColor: Colors.white,
+        leading: Builder(
+          builder: (context) => IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (Context) => Signin()),
+              );
+            },
+            icon: Icon(Icons.arrow_back_ios_new),
+          ),
+        ),
+      ),
       body: SafeArea(
         child: SizedBox.expand(
           child: SingleChildScrollView(
@@ -250,10 +265,7 @@ class SignupState extends State<Signup> {
                     onPressed: () {
                       if (FormKey_SignUp.currentState!.validate() &&
                           isChecked == true) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Signin()),
-                        );
+                        Navigator.pop(context);
                       }
                       ;
                       if (isChecked == true) {

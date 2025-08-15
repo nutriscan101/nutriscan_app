@@ -5,10 +5,10 @@ class Calender extends StatefulWidget {
   const Calender({super.key});
 
   @override
-  State<Calender> createState() => CalState();
+  State<Calender> createState() => Calenderstate();
 }
 
-class CalState extends State<Calender> {
+class Calenderstate extends State<Calender> {
   DateTime today = DateTime.now();
   void _OnDaySelected(DateTime day, DateTime focusedDay) {
     setState(() {
@@ -24,9 +24,7 @@ class CalState extends State<Calender> {
       children: [
         Container(
           width: screenWidth,
-          decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 255, 249, 164),
-          ),
+          decoration: BoxDecoration(color: Colors.white),
           child: TableCalendar(
             rowHeight: screenheight * 0.1,
             selectedDayPredicate: (day) => isSameDay(day, today),

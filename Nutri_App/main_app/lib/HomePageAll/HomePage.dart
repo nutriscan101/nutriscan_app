@@ -10,14 +10,14 @@ import 'package:main_app/HomePageAll/healthy-drink-food.dart';
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
   @override
-  State<HomePage> createState() => HomeState();
+  State<HomePage> createState() => Homepagestate();
 }
 
-class HomeState extends State<HomePage> {
+class Homepagestate extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final Screenheight = MediaQuery.of(context).size.height;
-    final ScreenWidth = MediaQuery.of(context).size.width;
+    final screenwidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -32,7 +32,7 @@ class HomeState extends State<HomePage> {
             Text(
               "NutriScan",
               style: GoogleFonts.poppins(
-                fontSize: 20,
+                fontSize: screenwidth * 0.05,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -75,7 +75,7 @@ class HomeState extends State<HomePage> {
           ),
 
           BottomNavigationBarItem(
-            icon: Image.asset('assets/images/scan.png', height: 55),
+            icon: Image.asset('assets/images/scan.png', height: 50),
             activeIcon: Image.asset('scan.png'),
             label: 'Scan',
           ),

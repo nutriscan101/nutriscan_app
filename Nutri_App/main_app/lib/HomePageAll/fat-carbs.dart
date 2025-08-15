@@ -5,10 +5,10 @@ class fatcarbs extends StatefulWidget {
   const fatcarbs({super.key});
 
   @override
-  State<fatcarbs> createState() => fatcarbstate();
+  State<fatcarbs> createState() => fatcarbs_state();
 }
 
-class fatcarbstate extends State<fatcarbs> {
+class fatcarbs_state extends State<fatcarbs> {
   int Fat = 100, carbs = 200;
 
   String fatstat() {

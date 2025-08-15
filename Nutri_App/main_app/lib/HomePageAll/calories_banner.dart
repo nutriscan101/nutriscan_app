@@ -5,10 +5,10 @@ import 'package:google_fonts/google_fonts.dart';
 class Calories extends StatefulWidget {
   const Calories({super.key});
   @override
-  State<Calories> createState() => CalorState();
+  State<Calories> createState() => Calories_state();
 }
 
-class CalorState extends State<Calories> {
+class Calories_state extends State<Calories> {
   int totalCalories = 1200;
   int target = 2000;
 

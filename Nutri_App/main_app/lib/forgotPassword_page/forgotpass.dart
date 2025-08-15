@@ -1,19 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:main_app/SignUp_and_Login/SignIn.dart';
+import 'PasswordRecovery.dart';
 
 class forgotpass extends StatefulWidget {
-  State<forgotpass> createState() => newpass();
+  State<forgotpass> createState() => forgotpassstate();
 }
 
-class newpass extends State<forgotpass> {
+class forgotpassstate extends State<forgotpass> {
+  final GlobalKey<FormState> passkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final screenwidth = MediaQuery.of(context).size.width;
     final screenheight = MediaQuery.of(context).size.height;
-    final passkey = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
+
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        toolbarHeight: screenheight * 0.04,
+        leading: Builder(
+          builder: (context) => IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Signin()),
+              );
+            },
+            icon: Icon(Icons.arrow_back_ios_new),
+          ),
+        ),
+      ),
+
       body: SafeArea(
         child: SingleChildScrollView(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -76,7 +95,14 @@ class newpass extends State<forgotpass> {
                     ),
                   ),
                   onPressed: () {
-                    if (passkey.currentState!.validate()) {}
+                    if (passkey.currentState!.validate()) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Passwordrecovery(),
+                        ),
+                      );
+                    }
                     ;
                   },
                   child: Text(
