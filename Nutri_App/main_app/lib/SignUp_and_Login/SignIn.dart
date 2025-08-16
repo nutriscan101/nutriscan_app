@@ -88,7 +88,9 @@ class Signinstate extends State<Signin> {
                         },
                         decoration: InputDecoration(
                           hintText: 'Email Address',
-                          border: OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                         ),
                       ),
                       SizedBox(height: screenheight * 0.03),
@@ -116,7 +118,9 @@ class Signinstate extends State<Signin> {
                               });
                             },
                           ),
-                          border: const OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                         ),
                       ),
                       SizedBox(height: screenheight * 0.02),

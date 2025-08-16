@@ -5,6 +5,10 @@ class EditProfile extends StatefulWidget {
 }
 
 class EditProfileState extends State<EditProfile> {
+  final editkey = GlobalKey<FormState>();
+  String username = 'pd';
+  String usirname = 'dixit';
+  String uemail = 'nutriscan08@gmail.com';
   @override
   Widget build(BuildContext context) {
     final screenheight = MediaQuery.of(context).size.height;
@@ -13,10 +17,13 @@ class EditProfileState extends State<EditProfile> {
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       appBar: AppBar(
-        toolbarHeight: screenheight * 0.05,
+        backgroundColor: Colors.white,
+        toolbarHeight: screenheight * 0.039,
         leading: Builder(
           builder: (context) => IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             icon: Icon(Icons.arrow_back_ios_new),
           ),
         ),
@@ -30,23 +37,57 @@ class EditProfileState extends State<EditProfile> {
             padding: EdgeInsets.all(screenheight * 0.03),
             child: Column(
               children: [
-                CircleAvatar(
-                  radius: 40,
-                  backgroundImage: AssetImage(
-                    'assets/images/default_profile.png',
+                Center(
+                  child: Stack(
+                    children: [
+                      CircleAvatar(
+                        radius: 50,
+                        backgroundImage: AssetImage(
+                          'assets/images/default_profile.png',
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Container(
+                          height: 35,
+                          width: 35,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                            border: Border.all(color: Colors.black, width: 1),
+                          ),
+                          child: Center(
+                            child: Builder(
+                              builder: (context) => IconButton(
+                                onPressed: () {},
+                                icon: Image.asset(
+                                  'assets/images/imagepicker.png',
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: Container(
-                    height: 28,
-                    width: 28,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.black, width: 1),
-                    ),
+                SizedBox(height: screenheight * 0.05),
+                Form(
+                  key: editkey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          hintText: username,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          suffixIcon: Icon(Icons.edit),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],

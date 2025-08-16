@@ -125,9 +125,11 @@ class SignupState extends State<Signup> {
                                   }
                                   return null;
                                 },
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                   hintText: 'First Name',
-                                  border: OutlineInputBorder(),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
                                 ),
                               ),
                             ),
@@ -149,9 +151,11 @@ class SignupState extends State<Signup> {
                                   }
                                   return null;
                                 },
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                   hintText: 'Last Name',
-                                  border: OutlineInputBorder(),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
                                 ),
                               ),
                             ),
@@ -172,9 +176,11 @@ class SignupState extends State<Signup> {
                             }
                             return null;
                           },
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             hintText: 'Email Address',
-                            border: OutlineInputBorder(),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
                           ),
                         ),
 
@@ -205,7 +211,9 @@ class SignupState extends State<Signup> {
                                 });
                               },
                             ),
-                            border: const OutlineInputBorder(),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
                           ),
                         ),
 

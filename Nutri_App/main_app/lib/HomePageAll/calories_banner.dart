@@ -65,7 +65,7 @@ class Calories_state extends State<Calories> {
           ),
           SizedBox(height: 10),
           LinearPercentIndicator(
-            width: screenWidth * 0.85,
+            width: screenWidth * 0.83,
             lineHeight: 10,
             percent: totalCalories / target,
             animation: true,

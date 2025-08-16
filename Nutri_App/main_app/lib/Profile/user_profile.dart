@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:main_app/Profile/Edit_profile.dart';
 import 'package:main_app/SignUp_and_Login/SignIn.dart';
 
 class UserProfile extends StatefulWidget {
@@ -56,7 +57,12 @@ class UserProfilestate extends State<UserProfile> {
                       borderRadius: BorderRadiusGeometry.circular(10),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => EditProfile()),
+                    );
+                  },
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -136,7 +142,7 @@ class UserProfilestate extends State<UserProfile> {
                             vertical: 5,
                             horizontal: 5,
                           ),
-                          backgroundColor: Colors.blue,
+                          backgroundColor: Colors.red,
                           foregroundColor: Colors.white,
                         ),
                         onPressed: () {},
