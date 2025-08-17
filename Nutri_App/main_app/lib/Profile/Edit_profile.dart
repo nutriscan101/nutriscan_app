@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditProfile extends StatefulWidget {
   State<EditProfile> createState() => EditProfileState();
@@ -6,13 +10,50 @@ class EditProfile extends StatefulWidget {
 
 class EditProfileState extends State<EditProfile> {
   final editkey = GlobalKey<FormState>();
-  String username = 'pd';
-  String usirname = 'dixit';
+
+  String unickname = 'pd';
+  String ufullname = '';
+  int uage = 20;
+  int uweight = 60;
   String uemail = 'nutriscan08@gmail.com';
+  File? _imagefile;
+  final ImagePicker _picker = new ImagePicker();
+  Future<void> _pickimage(ImageSource source) async {
+    final pickedfile = await _picker.pickImage(source: source);
+
+    if (pickedfile != null) {
+      setState(() {
+        _imagefile = File(pickedfile.path);
+      });
+      _saveImage(pickedfile.path);
+    }
+  }
+
+  Future<void> _loadImage() async {
+    final prefs = await SharedPreferences.getInstance();
+    final path = prefs.getString("profile_image");
+    if (path != null) {
+      setState(() {
+        _imagefile = File(path);
+      });
+    }
+  }
+
+  Future<void> _saveImage(String path) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString("profile_image", path);
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenheight = MediaQuery.of(context).size.height;
     final screenwidth = MediaQuery.of(context).size.width;
+    @override
+    void initState() {
+      super.initState();
+      _loadImage();
+    }
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
@@ -42,9 +83,11 @@ class EditProfileState extends State<EditProfile> {
                     children: [
                       CircleAvatar(
                         radius: 50,
-                        backgroundImage: AssetImage(
-                          'assets/images/default_profile.png',
-                        ),
+                        backgroundImage: _imagefile != null
+                            ? FileImage(_imagefile!) as ImageProvider
+                            : const AssetImage(
+                                'assets/images/default_profile.png',
+                              ),
                       ),
                       Positioned(
                         bottom: 0,
@@ -58,12 +101,12 @@ class EditProfileState extends State<EditProfile> {
                             border: Border.all(color: Colors.black, width: 1),
                           ),
                           child: Center(
-                            child: Builder(
-                              builder: (context) => IconButton(
-                                onPressed: () {},
-                                icon: Image.asset(
-                                  'assets/images/imagepicker.png',
-                                ),
+                            child: IconButton(
+                              onPressed: () {
+                                _pickimage(ImageSource.gallery);
+                              },
+                              icon: Image.asset(
+                                'assets/images/imagepicker.png',
                               ),
                             ),
                           ),
@@ -72,20 +115,186 @@ class EditProfileState extends State<EditProfile> {
                     ],
                   ),
                 ),
-                SizedBox(height: screenheight * 0.05),
                 Form(
                   key: editkey,
                   child: Column(
                     children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text('  Nick name'),
+                      ),
                       TextFormField(
                         obscureText: false,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Nickname cannot be empty";
+                          }
+                          if (value.length < 2) {
+                            return "Nickname must be at least 2 characters long";
+                          }
+                          if (value.length > 15) {
+                            return "Nickname cannot be more than 15 characters";
+                          }
+                          final nicknameRegex = RegExp(r'^[a-zA-Z0-9_]+$');
+                          if (!nicknameRegex.hasMatch(value)) {
+                            return "Only letters, numbers, and underscores are allowed";
+                          }
+                          return null;
+                        },
                         decoration: InputDecoration(
-                          hintText: username,
+                          labelText: unickname,
+                          hintText: 'Enter Your nick name',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
                           suffixIcon: Icon(Icons.edit),
                         ),
+                      ),
+                      SizedBox(height: screenheight * 0.01),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text('  Full Name'),
+                      ),
+                      TextFormField(
+                        obscureText: false,
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return "Full name cannot be empty";
+                          }
+                          if (value.trim().length < 2) {
+                            return "Full name must be at least 2 characters long";
+                          }
+                          if (value.trim().length > 50) {
+                            return "Full name cannot be more than 50 characters";
+                          }
+                          final nameRegex = RegExp(r'^[a-zA-Z\s]+$');
+                          if (!nameRegex.hasMatch(value)) {
+                            return "Only letters and spaces are allowed";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          labelText: ufullname,
+                          hintText: 'Enter Your Full name',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          suffixIcon: Icon(Icons.edit),
+                        ),
+                      ),
+                      SizedBox(height: screenheight * 0.01),
+
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text('  Email Aaddress'),
+                      ),
+                      TextFormField(
+                        obscureText: false,
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return "Email is required";
+                          } else if (!RegExp(
+                            r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                          ).hasMatch(value.trim())) {
+                            return "Enter a valid email";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          labelText: uemail,
+                          hintText: 'Enter Your Email',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          suffixIcon: Icon(Icons.edit),
+                        ),
+                      ),
+                      SizedBox(height: screenheight * 0.01),
+
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text('  Age'),
+                      ),
+                      TextFormField(
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return "Age cannot be empty";
+                          }
+                          final age = int.tryParse(value.trim());
+                          if (age == null) {
+                            return "Age must be a number";
+                          }
+                          if (age < 12) {
+                            return "Age must be at least 12";
+                          }
+                          if (age > 100) {
+                            return "Age must be less than or equal to 100";
+                          }
+                          return null;
+                        },
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          labelText: uage.toString(),
+                          hintText: 'Enter Your Age',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          suffixIcon: Icon(Icons.edit),
+                        ),
+                      ),
+                      SizedBox(height: screenheight * 0.01),
+
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text('  Weight'),
+                      ),
+                      TextFormField(
+                        obscureText: false,
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return "Weight cannot be empty";
+                          }
+                          final weight = double.tryParse(value.trim());
+                          if (weight == null) {
+                            return "Weight must be a number";
+                          }
+                          if (weight <= 10) {
+                            return "Weight must be greater than 10";
+                          }
+                          if (weight > 300) {
+                            return "(Are You Serious!!!)Weight must be less than or equal to 300 kg";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          labelText: uweight.toString(),
+                          hintText: 'Enter Your Weight',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          suffixIcon: Icon(Icons.edit),
+                        ),
+                      ),
+                      SizedBox(height: screenheight * 0.10),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 15,
+                            horizontal: 100,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+
+                        onPressed: () {
+                          if (editkey.currentState!.validate()) {
+                            Navigator.pop(context);
+                          }
+                        },
+                        child: Text('Svae Changes'),
                       ),
                     ],
                   ),

@@ -271,8 +271,7 @@ class SignupState extends State<Signup> {
                       ),
                     ),
                     onPressed: () {
-                      if (FormKey_SignUp.currentState!.validate() &&
-                          isChecked == true) {
+                      if (FormKey_SignUp.currentState!.validate()) {
                         Navigator.pop(context);
                       }
                       ;
@@ -280,7 +279,7 @@ class SignupState extends State<Signup> {
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text('Please Accept Terms'),
+                            content: Text('Please Accept Terms of services'),
                             duration: Duration(seconds: 2),
                           ),
                         );
