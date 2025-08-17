@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:main_app/HomePageAll/fat-carbs.dart';
 import 'package:main_app/HomePageAll/healthy-drink-food.dart';
 import 'package:main_app/Profile/user_profile.dart';
+import 'package:main_app/Scanner/ScannerCamera.dart';
 import 'package:main_app/SignUp_and_Login/Signup.dart';
 
 class HomePage extends StatefulWidget {
@@ -35,29 +36,16 @@ class Homepagestate extends State<HomePage> {
         ),
       ),
       Center(child: Text("Progress Page", style: TextStyle(fontSize: 24))),
-      Center(child: Text("Scan Page", style: TextStyle(fontSize: 24))),
+      ScannerCamera(),
       Center(child: Text("History Page", style: TextStyle(fontSize: 24))),
       UserProfile(),
     ];
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Row(
-          children: [
-            Image.asset(
-              'assets/images/appbarlogo.png',
-              height: Screenheight * 0.05,
-            ),
-            const SizedBox(width: 8),
-            Text(
-              "NutriScan",
-              style: GoogleFonts.poppins(
-                fontSize: screenwidth * 0.05,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
+        backgroundColor: Colors.white,
+        leading: Image.asset('assets/images/appbarlogo.png'),
+        title: Text('NutriScan'),
       ),
       body: IndexedStack(index: _currentIndex, children: _pages),
 
@@ -75,7 +63,7 @@ class Homepagestate extends State<HomePage> {
         showUnselectedLabels: true,
         backgroundColor: Colors.white,
         elevation: 0,
-        iconSize: 24,
+        iconSize: 28,
 
         items: [
           BottomNavigationBarItem(
@@ -90,8 +78,8 @@ class Homepagestate extends State<HomePage> {
           ),
 
           BottomNavigationBarItem(
-            icon: Image.asset('assets/images/scan.png', height: 42),
-            activeIcon: Image.asset('assets/images/scan.png', height: 42),
+            icon: Image.asset('assets/images/scan.png', height: 45),
+            activeIcon: Image.asset('assets/images/scan.png', height: 45),
             label: 'Scan',
           ),
           BottomNavigationBarItem(

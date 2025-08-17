@@ -35,7 +35,7 @@ class healthydfState extends State<Healthydf> {
             "Healthy Food/Drinks",
             style: GoogleFonts.poppins(
               fontSize: 25,
-              color: const Color.fromARGB(255, 118, 85, 147),
+              color: const Color.fromARGB(255, 114, 57, 164),
               fontWeight: FontWeight.bold,
             ),
           ),
