@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:camera/camera.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:main_app/HomePageAll/HomePage.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:main_app/HomePageAll/HomePage.dart';
 import 'package:main_app/SignUp_and_Login/Signup.dart';
-import 'package:main_app/forgotPassword_page/PasswordRecovery.dart';
 import 'package:main_app/forgotPassword_page/forgotpass.dart';
 
 class Signin extends StatefulWidget {
