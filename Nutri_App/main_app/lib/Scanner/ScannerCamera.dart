@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:main_app/HomePageAll/HomePage.dart';
-import 'package:percent_indicator/percent_indicator.dart';
+import 'package:google_mlkit_barcode_scanning/google_mlkit_barcode_scanning.dart';
 
 class ScannerCamera extends StatefulWidget {
   const ScannerCamera({super.key});
@@ -84,7 +84,7 @@ class ScannerCamerastate extends State<ScannerCamera> {
                 ),
                 SizedBox(height: screenheight * 0.07),
                 Text(
-                  'Scan Barcode Of Your Product',
+                  'Scan Barcode From Product',
                   style: GoogleFonts.poppins(
                     fontSize: screenwidth * 0.05,
                     color: Colors.grey,
