@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:main_app/HomePageAll/HomePage.dart';
-import 'package:google_mlkit_barcode_scanning/google_mlkit_barcode_scanning.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 
 class ScannerCamera extends StatefulWidget {
   const ScannerCamera({super.key});
@@ -12,45 +12,21 @@ class ScannerCamera extends StatefulWidget {
 }
 
 class ScannerCamerastate extends State<ScannerCamera> {
-  List<CameraDescription> cameras = [];
-  CameraController? cameraController;
-
-  @override
-  void initState() {
-    super.initState();
-    _setupcameracontroller();
-  }
-
-  @override
-  void dispose() {
-    cameraController?.dispose();
-    super.dispose();
-  }
-
-  Future<void> _setupcameracontroller() async {
-    final _cameras = await availableCameras();
-    if (_cameras.isNotEmpty) {
-      cameras = _cameras;
-      cameraController = CameraController(
-        _cameras.first,
-        ResolutionPreset.high,
-      );
-
-      await cameraController!.initialize();
-      if (mounted) {
-        setState(() {});
-      }
-    }
-  }
-
+  String? scannedBarcode;
   Widget _buildUi() {
     final screenwidth = MediaQuery.of(context).size.width;
     final screenheight = MediaQuery.of(context).size.height;
-
-    if (cameraController == null || !cameraController!.value.isInitialized) {
-      return const Center(child: CircularProgressIndicator());
-    }
-
+    final MobileScannerController controller = MobileScannerController(
+      formats: [
+        BarcodeFormat.code128,
+        BarcodeFormat.ean13,
+        BarcodeFormat.ean8,
+        BarcodeFormat.upcA,
+        BarcodeFormat.upcE,
+        BarcodeFormat.code39,
+        BarcodeFormat.itf,
+      ],
+    );
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -96,10 +72,32 @@ class ScannerCamerastate extends State<ScannerCamera> {
                   width: screenwidth * 0.9,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: CameraPreview(cameraController!),
+                    child: MobileScanner(
+                      controller: controller,
+                      onDetect: (BarcodeCapture capture) {
+                        final List<Barcode> barcodes = capture.barcodes;
+                        for (final barcode in barcodes) {
+                          setState(() {
+                            scannedBarcode = barcode.rawValue;
+                          });
+                        }
+                      },
+                    ),
                   ),
                 ),
-                SizedBox(height: screenheight * 0.15),
+                SizedBox(height: screenheight * 0.05),
+
+                if (scannedBarcode != null)
+                  Text(
+                    "Scanned: $scannedBarcode",
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+
+                SizedBox(height: screenheight * 0.10),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(
