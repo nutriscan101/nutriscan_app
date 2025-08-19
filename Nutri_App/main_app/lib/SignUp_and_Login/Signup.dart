@@ -271,11 +271,12 @@ class SignupState extends State<Signup> {
                       ),
                     ),
                     onPressed: () {
-                      if (FormKey_SignUp.currentState!.validate()) {
+                      if (FormKey_SignUp.currentState!.validate() &&
+                          isChecked) {
                         Navigator.pop(context);
                       }
                       ;
-                      if (isChecked == true) {
+                      if (isChecked) {
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(

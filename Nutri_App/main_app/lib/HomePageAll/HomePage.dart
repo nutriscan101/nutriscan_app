@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:main_app/HomePageAll/Calender.dart';
 import 'package:main_app/HomePageAll/calories_banner.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:main_app/HomePageAll/fat-carbs.dart';
 import 'package:main_app/HomePageAll/healthy-drink-food.dart';
 import 'package:main_app/Profile/user_profile.dart';
 import 'package:main_app/Scanner/ScannerCamera.dart';
-import 'package:main_app/SignUp_and_Login/Signup.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,7 +18,6 @@ class Homepagestate extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final Screenheight = MediaQuery.of(context).size.height;
-    final screenwidth = MediaQuery.of(context).size.width;
     final List<Widget> _pages = [
       SingleChildScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,

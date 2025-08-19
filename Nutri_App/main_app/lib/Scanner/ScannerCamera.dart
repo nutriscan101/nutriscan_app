@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:main_app/HomePageAll/HomePage.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class ScannerCamera extends StatefulWidget {
   const ScannerCamera({super.key});
@@ -26,6 +28,42 @@ class ScannerCamerastate extends State<ScannerCamera> {
         BarcodeFormat.itf,
       ],
     );
+    Future<void> _pickimageandscan() async {
+      final ImagePicker picker = ImagePicker();
+      final XFile? pickedfile = await picker.pickImage(
+        source: ImageSource.gallery,
+      );
+
+      if (pickedfile != null) {
+        final File imagefile = File(pickedfile.path);
+        final result = await controller.analyzeImage(imagefile.path);
+
+        if (result != null && result.barcodes.isNotEmpty) {
+          final barcode = result.barcodes.first; // ✅ Define barcode here
+
+          if (barcode.format == BarcodeFormat.qrCode) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("QR Codes are not allowed!"),
+                backgroundColor: Colors.red,
+              ),
+            );
+          } else {
+            setState(() {
+              scannedBarcode = barcode.rawValue;
+            });
+          }
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("No barcode found in the image!"),
+              backgroundColor: Colors.orange,
+            ),
+          );
+        }
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -109,7 +147,9 @@ class ScannerCamerastate extends State<ScannerCamera> {
                       borderRadius: BorderRadiusGeometry.circular(20),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    _pickimageandscan();
+                  },
                   child: Text(
                     'Choose From Gallery',
                     style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
