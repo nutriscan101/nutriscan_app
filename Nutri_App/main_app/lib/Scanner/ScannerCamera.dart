@@ -86,7 +86,7 @@ class ScannerCamerastate extends State<ScannerCamera> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: screenheight * 0.07),
+                SizedBox(height: screenheight * 0.05),
                 Text(
                   'Scanner',
                   style: TextStyle(
@@ -108,7 +108,7 @@ class ScannerCamerastate extends State<ScannerCamera> {
                   height: screenheight * 0.25,
                   width: screenwidth * 0.9,
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(15),
                     child: MobileScanner(
                       controller: controller,
                       onDetect: (BarcodeCapture capture) {
