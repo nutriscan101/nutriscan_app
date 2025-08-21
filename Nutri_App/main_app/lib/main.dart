@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:main_app/Profile/Edit_profile.dart';
+import 'package:main_app/Scanned_Output_page.dart/open_food_fact_api_call.dart';
 import 'package:main_app/Scanned_Output_page.dart/scan_output.dart';
 import 'package:main_app/Scanner/ScannerCamera.dart';
 import 'HomePageAll/HomePage.dart';
@@ -25,7 +26,7 @@ class _NutriState extends State<Nutri> {
       title: 'NutriScan',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: HomePage(),
+      home: OpenFood(),
     );
   }
 }

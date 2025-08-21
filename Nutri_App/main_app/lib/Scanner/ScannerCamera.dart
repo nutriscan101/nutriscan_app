@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:main_app/HomePageAll/HomePage.dart';
+import 'package:main_app/Scanned_Output_page.dart/open_food_fact_api_call.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -13,7 +14,7 @@ class ScannerCamera extends StatefulWidget {
 }
 
 class ScannerCamerastate extends State<ScannerCamera> {
-  String? scannedBarcode;
+  static String? scannedBarcode;
   Widget _buildUi() {
     final screenwidth = MediaQuery.of(context).size.width;
     final screenheight = MediaQuery.of(context).size.height;
@@ -39,7 +40,7 @@ class ScannerCamerastate extends State<ScannerCamera> {
         final result = await controller.analyzeImage(imagefile.path);
 
         if (result != null && result.barcodes.isNotEmpty) {
-          final barcode = result.barcodes.first; // ✅ Define barcode here
+          final barcode = result.barcodes.first;
 
           if (barcode.format == BarcodeFormat.qrCode) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -117,6 +118,10 @@ class ScannerCamerastate extends State<ScannerCamera> {
                           setState(() {
                             scannedBarcode = barcode.rawValue;
                           });
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => OpenFood()),
+                          );
                         }
                       },
                     ),
