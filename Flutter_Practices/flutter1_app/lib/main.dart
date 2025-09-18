@@ -7,6 +7,9 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     theme.textTheme.headlineMedium;
@@ -15,6 +18,8 @@ class MyApp extends StatelessWidget {
 }
 
 class Home extends StatelessWidget {
+  const Home({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

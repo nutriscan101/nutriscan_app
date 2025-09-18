@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class layouts extends StatelessWidget {
+  const layouts({super.key});
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,

@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class EditProfile extends StatefulWidget {
+  @override
   State<EditProfile> createState() => EditProfileState();
 }
 
@@ -17,10 +18,37 @@ class EditProfileState extends State<EditProfile> {
   int uweight = 60;
   String uemail = 'nutriscan08@gmail.com';
   File? _imagefile;
-  final ImagePicker _picker = new ImagePicker();
+
+  late TextEditingController nicknameController;
+  late TextEditingController fullnameController;
+  late TextEditingController ageController;
+  late TextEditingController weightController;
+  late TextEditingController emailController;
+  final ImagePicker _picker = ImagePicker();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadImage(); 
+    nicknameController = TextEditingController(text: unickname);
+    fullnameController = TextEditingController(text: ufullname);
+    ageController = TextEditingController(text: uage.toString());
+    weightController = TextEditingController(text: uweight.toString());
+    emailController = TextEditingController(text: uemail);
+  }
+
+  @override
+  void dispose() {
+    nicknameController.dispose();
+    fullnameController.dispose();
+    ageController.dispose();
+    weightController.dispose();
+    emailController.dispose();
+    super.dispose();
+  }
+
   Future<void> _pickimage(ImageSource source) async {
     final pickedfile = await _picker.pickImage(source: source);
-
     if (pickedfile != null) {
       setState(() {
         _imagefile = File(pickedfile.path);
@@ -48,11 +76,6 @@ class EditProfileState extends State<EditProfile> {
   Widget build(BuildContext context) {
     final screenheight = MediaQuery.of(context).size.height;
     final screenwidth = MediaQuery.of(context).size.width;
-    @override
-    void initState() {
-      super.initState();
-      _loadImage();
-    }
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -121,9 +144,10 @@ class EditProfileState extends State<EditProfile> {
                     children: [
                       Align(
                         alignment: Alignment.centerLeft,
-                        child: Text('  Nick name'),
+                        child: Text(' Nick name'),
                       ),
                       TextFormField(
+                        controller: nicknameController,
                         obscureText: false,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -142,20 +166,21 @@ class EditProfileState extends State<EditProfile> {
                           return null;
                         },
                         decoration: InputDecoration(
-                          labelText: unickname,
                           hintText: 'Enter Your nick name',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
                           suffixIcon: Icon(Icons.edit),
                         ),
+                        onSaved: (val) => unickname = val!.trim(),
                       ),
                       SizedBox(height: screenheight * 0.01),
                       Align(
                         alignment: Alignment.centerLeft,
-                        child: Text('  Full Name'),
+                        child: Text(' Full Name'),
                       ),
                       TextFormField(
+                        controller: fullnameController,
                         obscureText: false,
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
@@ -174,21 +199,21 @@ class EditProfileState extends State<EditProfile> {
                           return null;
                         },
                         decoration: InputDecoration(
-                          labelText: ufullname,
                           hintText: 'Enter Your Full name',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
                           suffixIcon: Icon(Icons.edit),
                         ),
+                        onSaved: (val) => ufullname = val!.trim(),
                       ),
                       SizedBox(height: screenheight * 0.01),
-
                       Align(
                         alignment: Alignment.centerLeft,
-                        child: Text('  Email Aaddress'),
+                        child: Text(' Email Address'),
                       ),
                       TextFormField(
+                        controller: emailController,
                         obscureText: false,
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
@@ -201,21 +226,21 @@ class EditProfileState extends State<EditProfile> {
                           return null;
                         },
                         decoration: InputDecoration(
-                          labelText: uemail,
                           hintText: 'Enter Your Email',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
                           suffixIcon: Icon(Icons.edit),
                         ),
+                        onSaved: (val) => uemail = val!.trim(),
                       ),
                       SizedBox(height: screenheight * 0.01),
-
                       Align(
                         alignment: Alignment.centerLeft,
-                        child: Text('  Age'),
+                        child: Text(' Age'),
                       ),
                       TextFormField(
+                        controller: ageController,
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
                             return "Age cannot be empty";
@@ -234,21 +259,22 @@ class EditProfileState extends State<EditProfile> {
                         },
                         obscureText: false,
                         decoration: InputDecoration(
-                          labelText: uage.toString(),
                           hintText: 'Enter Your Age',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
                           suffixIcon: Icon(Icons.edit),
                         ),
+                        onSaved: (val) => uage = int.parse(val!.trim()),
+                        keyboardType: TextInputType.number,
                       ),
                       SizedBox(height: screenheight * 0.01),
-
                       Align(
                         alignment: Alignment.centerLeft,
-                        child: Text('  Weight'),
+                        child: Text(' Weight'),
                       ),
                       TextFormField(
+                        controller: weightController,
                         obscureText: false,
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
@@ -267,13 +293,14 @@ class EditProfileState extends State<EditProfile> {
                           return null;
                         },
                         decoration: InputDecoration(
-                          labelText: uweight.toString(),
                           hintText: 'Enter Your Weight',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
                           suffixIcon: Icon(Icons.edit),
                         ),
+                        onSaved: (val) => uweight = int.parse(val!.trim()),
+                        keyboardType: TextInputType.number,
                       ),
                       SizedBox(height: screenheight * 0.10),
                       ElevatedButton(
@@ -288,13 +315,13 @@ class EditProfileState extends State<EditProfile> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-
                         onPressed: () {
                           if (editkey.currentState!.validate()) {
+                            editkey.currentState!.save();
                             Navigator.pop(context);
                           }
                         },
-                        child: Text('Svae Changes'),
+                        child: Text('Save Changes'),
                       ),
                     ],
                   ),

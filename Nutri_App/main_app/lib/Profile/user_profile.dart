@@ -101,7 +101,7 @@ class UserProfilestate extends State<UserProfile> {
                     title: Text('Notifications'),
                     inactiveThumbColor: Colors.blue[400],
                     inactiveTrackColor: Colors.blue[200],
-                    activeColor: Colors.blue[300],
+                    activeThumbColor: Colors.blue[300],
                     activeTrackColor: Colors.blue[500],
                     value: isOn,
                     onChanged: (value) {
@@ -118,7 +118,7 @@ class UserProfilestate extends State<UserProfile> {
                     title: Text('Theme(Dark/Light)'),
                     inactiveThumbColor: Colors.blue[400],
                     inactiveTrackColor: Colors.blue[200],
-                    activeColor: Colors.blue[300],
+                    activeThumbColor: Colors.blue[300],
                     activeTrackColor: Colors.blue[500],
                     value: isOn2,
                     onChanged: (value) {

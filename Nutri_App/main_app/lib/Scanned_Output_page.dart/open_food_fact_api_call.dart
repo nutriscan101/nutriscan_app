@@ -25,7 +25,7 @@ class _OpenFoodState extends State<OpenFood> {
   Future<void> fetchproducts() async {
     print("Fetching Product...");
     final uri = Uri.parse(
-      "https://world.openfoodfacts.org/api/v2/product/8901499023742.json",
+      "https://world.openfoodfacts.org/api/v2/product/$code.json",
     );
     final response = await http.get(
       uri,
@@ -53,6 +53,7 @@ class _OpenFoodState extends State<OpenFood> {
     } else {
       print("Error: ${response.statusCode}");
       setState(() {
+        Text(response.statusCode.toString());
         isLoading = false;
       });
     }
@@ -74,13 +75,14 @@ class _OpenFoodState extends State<OpenFood> {
 
   Widget ingredientsWidget() {
     final screenwidth = MediaQuery.of(context).size.width;
-    final screenheight = MediaQuery.of(context).size.height;
 
     if (product != null && product!["ingredients_text"] != null) {
       return SizedBox(
-        width: screenwidth * 0.7,
-        height: screenheight * 0.5,
-        child: Text("${product!["ingredients_text"] ?? "Unknown"}"),
+        width: screenwidth * 0.71,
+        child: Text(
+          "${product!["ingredients_text"] ?? "Unknown"}",
+          style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
+        ),
       );
     } else {
       return Text('Unlnown');
@@ -89,50 +91,49 @@ class _OpenFoodState extends State<OpenFood> {
 
   Widget NutritionalItemsWidget() {
     final screenwidth = MediaQuery.of(context).size.width;
-    final screenheight = MediaQuery.of(context).size.width;
-    final nutriments = product!["nutriments"];
+    final screenheight = MediaQuery.of(context).size.height;
+    final nutriments = product?["nutriments"];
 
-    if (product != null && product!["nutriants"] != null) {
+    if (product != null && nutriments != null) {
       return Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        elevation: 3,
+        elevation: 0,
+        color: Colors.white,
         margin: EdgeInsets.all(8),
         child: Padding(
           padding: EdgeInsets.all(screenwidth * 0.02),
-          child: Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Nutritional Level Per 100g'),
-                SizedBox(height: screenheight * 0.02),
-                _rowItem(
-                  "Energy",
-                  "${nutriments["energy-kcal_100g"] ?? "N/A"} kcal",
-                ),
-                _rowItem("Fat", "${nutriments["fat_100g"] ?? "N/A"} g"),
-                _rowItem(
-                  "Saturated Fat",
-                  "${nutriments["saturated-fat_100g"] ?? "N/A"} g",
-                ),
-                _rowItem(
-                  "Carbohydrates",
-                  "${nutriments["carbohydrates_100g"] ?? "N/A"} g",
-                ),
-                _rowItem("Sugars", "${nutriments["sugars_100g"] ?? "N/A"} g"),
-                _rowItem("Fiber", "${nutriments["fiber_100g"] ?? "N/A"} g"),
-                _rowItem(
-                  "Protein",
-                  "${nutriments["proteins_100g"] ?? "N/A"} g",
-                ),
-                _rowItem("Salt", "${nutriments["salt_100g"] ?? "N/A"} g"),
-              ],
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Nutritional Level Per 100g'),
+              SizedBox(height: screenheight * 0.02),
+              _rowItem(
+                "Energy :",
+                "${nutriments["energy-kcal_100g"] ?? "N/A"} kcal",
+              ),
+              _rowItem("Fat", "${nutriments["fat_100g"] ?? "N/A"} g"),
+              _rowItem(
+                "Saturated Fat :",
+                "${nutriments["saturated-fat_100g"] ?? "N/A"} g",
+              ),
+              _rowItem(
+                "Carbohydrates :",
+                "${nutriments["carbohydrates_100g"] ?? "N/A"} g",
+              ),
+              _rowItem("Sugars :", "${nutriments["sugars_100g"] ?? "N/A"} g"),
+              _rowItem("Fiber :", "${nutriments["fiber_100g"] ?? "N/A"} g"),
+              _rowItem(
+                "Protein :",
+                "${nutriments["proteins_100g"] ?? "N/A"} g",
+              ),
+              _rowItem("Salt :", "${nutriments["salt_100g"] ?? "N/A"} g"),
+            ],
           ),
         ),
       );
-    } else {
-      return Text('Unknown');
     }
+
+    return Text("No nutritional info available");
   }
 
   Widget _rowItem(String label, String value) {
@@ -144,7 +145,7 @@ class _OpenFoodState extends State<OpenFood> {
           Text(label, style: TextStyle(fontSize: 10)),
           Text(
             value,
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
           ),
         ],
       ),
@@ -156,79 +157,62 @@ class _OpenFoodState extends State<OpenFood> {
     final screenheight = MediaQuery.of(context).size.height;
     final screenwidth = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
       body: SafeArea(
-        child: SingleChildScrollView(
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          child: Container(
-            width: screenwidth,
-            height: screenheight,
-            color: Colors.white,
-            child: Column(
-              children: [
-                isLoading
-                    ? Center(child: CircularProgressIndicator())
-                    : product == null
-                    ? const Center(child: Text('Product Not Found'))
-                    : Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            if (product!["image_url"] != null)
-                              SizedBox(
-                                height: screenheight * 0.25,
-                                width: screenwidth*0.9,
-                                child: Align(
-                                  alignment: AlignmentGeometry.center,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: Image.network(
-                                      product!['image_url'],
-                                      height: 150,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            SizedBox(height: screenheight * 0.01),
-                            Row(
-                              children: [Text("Veganstatus : "), vegStatus()],
-                            ),
-                            SizedBox(height: screenheight * 0.02),
-                            Text(
-                              product!["product_name"] ?? "No Name",
-                              style: GoogleFonts.poppins(
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
+        child: isLoading
+            ? Center(child: CircularProgressIndicator())
+            : product == null
+            ? const Center(child: Text('Product Not Found'))
+            : Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (product!["image_url"] != null)
+                        SizedBox(
+                          height: screenheight * 0.25,
+                          width: screenwidth * 0.9,
+                          child: Align(
+                            alignment: AlignmentGeometry.center,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15),
+                              child: Image.network(
+                                product!['image_url'],
+                                height: 150,
                               ),
                             ),
-                            Text(
-                              "Brand : ${product!["brands"] ?? "Unknown"}",
-                              style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(height: screenheight * 0.02),
-                            Row(
-                              children: [
-                                Text("Ingrediants : "),
-                                ingredientsWidget(),
-                              ],
-                            ),
-                            const SizedBox(height: 8),
-                            Row(
-                              children: [
-                                Text("Nutritions : "),
-                                NutritionalItemsWidget(),
-                              ],
-                            ),
-                          ],
+                          ),
+                        ),
+                      SizedBox(height: screenheight * 0.01),
+                      Row(children: [Text("Veganstatus : "), vegStatus()]),
+                      SizedBox(height: screenheight * 0.02),
+                      Text(
+                        product!["product_name"] ?? "No Name",
+                        style: GoogleFonts.poppins(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-              ],
-            ),
-          ),
-        ),
+                      Text(
+                        "Brand : ${product!["brands"] ?? "Unknown"}",
+                        style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                      ),
+                      Row(
+                        children: [Text("Ingrediants : "), ingredientsWidget()],
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          Text("Nutritions : "),
+                          NutritionalItemsWidget(),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
       ),
     );
   }
